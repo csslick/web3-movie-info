@@ -87,10 +87,14 @@ data.forEach(movie => {
 // 영화정보 표시
 movieList.innerHTML = html;
 
+
+// iframe 저장: 닫을 때 해당 요소 삭제했다 열때 다시 추가
+let embed = document.querySelector('.modal iframe') 
+
 // 동영상 모달창 
 function showMovie(url) {
-  console.log(url)
   const modal = document.querySelector('.modal')
+  modal.append(embed);
   const video = document.querySelector('.modal iframe')
 
   modal.classList.add('active');
@@ -98,10 +102,10 @@ function showMovie(url) {
   video.setAttribute('src', newUrl);
 }
 
-// 모달 닫기 버튼
-document
-  .querySelector('.modal .btn_close')
-  .addEventListener('click', function(){
-    // 페이지 새로고침
-    location.reload();
-  })
+// 모달 닫기
+const btn_close = document.querySelector('.modal .btn_close');
+
+btn_close.addEventListener('click', function(){
+    document.querySelector('.modal iframe').remove();
+    document.querySelector('.modal').classList.remove('active');
+})
